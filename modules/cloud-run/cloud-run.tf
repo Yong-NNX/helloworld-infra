@@ -10,6 +10,13 @@ resource "google_cloud_run_service" "cloud-run" {
       }
     }
   }
+  metadata {
+    annotations = {
+      "run.googleapis.com/launch-stage"  = "BETA"
+      "autoscaling.knative.dev/maxScale" = var.max_instances
+      "autoscaling.knative.dev/minScale" = var.min_instances
+    }
+  }
   lifecycle {
     ignore_changes = [
       template.0.metadata.0.annotations
