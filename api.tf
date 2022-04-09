@@ -18,7 +18,7 @@ locals {
 
 # Certain services do not come enabled upon initial project creation, enable them for project
 resource "google_project_service" "api" {
-  for_each                   = local.api_services
+  for_each                   = toset(local.api_services)
   project                    = local.project_id
   service                    = each.value
   disable_dependent_services = false
