@@ -1,28 +1,12 @@
-data "docker_registry_image" "image" {
-  name = "gcr.io/${var.project_id}/${var.name}:${var.service_version}"
-}
-
-data "google_container_registry_image" "project_registry_image" {
-  name    = var.name
-  project = var.project_id
-  digest  = data.docker_registry_image.image.sha256_digest
-}
-
 resource "google_cloud_run_service" "cloud-run" {
   name     = var.name
   location = var.region
+
   template {
     spec {
       containers {
-        image = data.google_container_registry_image.project_registry_image.image_url
+        image = "gcr.io/yong-dev/helloworld@sha256:c5ed2fcac631200842fe6f5813ff393ea04e3520a67913c6642c12852f6a9ea9"
 
-      }
-    }
-    metadata {
-      annotations = {
-        "run.googleapis.com/launch-stage"  = "BETA"
-        "autoscaling.knative.dev/maxScale" = var.max_instances
-        "autoscaling.knative.dev/minScale" = var.min_instances
       }
     }
   }
@@ -31,9 +15,17 @@ resource "google_cloud_run_service" "cloud-run" {
       template.0.metadata.0.annotations
     ]
   }
+
   autogenerate_revision_name = true
   traffic {
     percent         = 100
     latest_revision = true
   }
+}
+
+resource "google_cloud_run_service_iam_member" "allUsers" {
+  service  = google_cloud_run_service.cloud-run.name
+  location = google_cloud_run_service.cloud-run.location
+  role     = "roles/run.invoker"
+  member   = "allUsers"
 }
