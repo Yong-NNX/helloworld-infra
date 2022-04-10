@@ -24,6 +24,11 @@ variable "service_project_id" {
   description = "Project id for this project"
 }
 
+variable "http_ingress_ranges_to_allow_source" {
+  type = list(string)
+}
+
+
 
 #-------------------------------------------
 # Generic service settings:

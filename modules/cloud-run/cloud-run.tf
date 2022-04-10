@@ -5,7 +5,7 @@ resource "google_cloud_run_service" "cloud-run" {
   template {
     spec {
       containers {
-        image = "gcr.io/yong-dev/helloworld@sha256:c5ed2fcac631200842fe6f5813ff393ea04e3520a67913c6642c12852f6a9ea9"
+        image = "gcr.io/yong-dev/helloworld@sha256:195ab34be5a689ea2a6d968c156449db13961ba6710abee21ec3eb6134f34de0"
 
       }
     }
