@@ -17,32 +17,13 @@ variable "create_app_engine" {
 
 variable "app_engine_location" {
   description = "App Engine location (eu-north1 or europe-west)"
-  default     = "eu-north1"
+  default     = "europe-west"
 }
 
 variable "service_project_id" {
   description = "Project id for this project"
 }
 
-variable "subnetwork_name" {
-  description = "Subnetwork name from the hosting project"
-}
-
-variable "network_name" {
-  description = "Network name from the hosting project"
-}
-
-variable "host_network_project_id" {
-  description = "Hosting project for VPC and FW rules"
-}
-
-variable "host_dns_project_id" {
-  description = "DNS hosting project"
-}
-
-variable "dns_public_zone_name" {
-  description = "Name of the public zone in the DNS hosting project"
-}
 
 #-------------------------------------------
 # Generic service settings:
